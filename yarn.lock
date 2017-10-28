@@ -2,6 +2,14 @@
 # yarn lockfile v1
 
 
+"@types/node@^8.0.47":
+  version "8.0.47"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-8.0.47.tgz#968e596f91acd59069054558a00708c445ca30c2"
+
+"@types/q@^1.0.6":
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/@types/q/-/q-1.0.6.tgz#ab615b4c8338dae2ce6777be013af029e357ecdb"
+
 ansi-regex@^1.0.0, ansi-regex@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/ansi-regex/-/ansi-regex-1.1.1.tgz#41c847194646375e6a1a5d10c3ca054ef9fc980d"
@@ -743,6 +751,10 @@ trim-newlines@^1.0.0:
 tunnel@0.0.4:
   version "0.0.4"
   resolved "https://registry.yarnpkg.com/tunnel/-/tunnel-0.0.4.tgz#2d3785a158c174c9a16dc2c046ec5fc5f1742213"
+
+typescript@^2.5.3:
+  version "2.5.3"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.5.3.tgz#df3dcdc38f3beb800d4bc322646b04a3f6ca7f0d"
 
 underscore@^1.8.3:
   version "1.8.3"

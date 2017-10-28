@@ -1,0 +1,11 @@
+{
+  "name": "buildtask",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "license": "MIT",
+  "dependencies": {
+    "npm-run": "^4.1.2",
+    "renovate": "^9.97.12",
+    "vsts-task-lib": "^2.1.0"
+  }
+}

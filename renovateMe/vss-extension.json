@@ -2,19 +2,42 @@
     "manifestVersion": 1,
     "id": "vsts-extensions-renovate-me",
     "name": "Renovate Me",
-    "version": "0.0.11",
+    "version": "0.0.21",
     "publisher": "jyc",
     "targets": [
         {
             "id": "Microsoft.VisualStudio.Services"
         }
-    ],    
+    ],
     "description": "Renovate embedded in VSTS!",
     "categories": [
         "Build and release"
     ],
     "icons": {
-        "default": "images/extension-icon.png"        
+        "default": "images/extension-icon.png"
+    },
+    "tags": [
+        "renovate",
+        "libs",
+        "packages",
+        "utility"
+    ],
+    "content": {
+        "details": {
+            "path": "renovateMe/README.md"
+        }
+    },
+    "links": {
+        "repository": {
+            "uri": "https://github.com/jycouet/VSTSExtensions"
+        },
+        "issues": {
+            "uri": "https://github.com/jycouet/VSTSExtensions/issues"
+        }
+    },
+    "branding": {
+        "color": "#55B541",
+        "theme": "dark"
     },
     "files": [
         {

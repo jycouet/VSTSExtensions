@@ -11,7 +11,7 @@
         "Minor": 1,
         "Patch": 0
     },
-    "instanceNameFormat": "Renovate $(BUILD_REPOSITORY_NAME)",
+    "instanceNameFormat": "Renovate",
     "groups": [
         {
 			"name": "authenticationOptions",
@@ -32,7 +32,7 @@
     ],
     "execution": {
         "Node": {
-            "target": "index.js"
+            "target": "src/index.js"
         }
     }
 }

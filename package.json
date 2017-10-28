@@ -5,9 +5,15 @@
   "author": "<jycouet@gmail.com>",
   "license": "MIT",
   "scripts": {
+    "prepackage": "tsc",
     "package": "yarn tfx extension create --manifest-globs renovateMe/vss-extension.json --output-path renovateMe/packages --rev-version"
   },
   "devDependencies": {
-    "tfx-cli": "^0.4.11"
+    "@types/node": "^8.0.47",
+    "tfx-cli": "^0.4.11",
+    "typescript": "^2.5.3"
+  },
+  "dependencies": {
+    "@types/q": "^1.0.6"
   }
 }
