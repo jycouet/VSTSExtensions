@@ -1,0 +1,13 @@
+{
+  "name": "vsts-extensions",
+  "version": "1.0.0",
+  "repository": "https://github.com/jycouet/VSTSExtensions.git",
+  "author": "<jycouet@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "package": "yarn tfx extension create --manifest-globs renovateMe/vss-extension.json --output-path renovateMe/packages --rev-version"
+  },
+  "devDependencies": {
+    "tfx-cli": "^0.4.11"
+  }
+}

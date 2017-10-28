@@ -1,0 +1,38 @@
+{
+    "id": "c48c23aa-bbff-11e7-abc4-cec278b6b50a",
+    "name": "RenovateMe",
+    "friendlyName": "Renovate Me",
+    "description": "Renovate your libs on your selected VSTS repo",
+    "helpMarkDown": "",
+    "category": "Utility",
+    "author": "Jean-Yves COUET",
+    "version": {
+        "Major": 0,
+        "Minor": 1,
+        "Patch": 0
+    },
+    "instanceNameFormat": "Renovate $(BUILD_REPOSITORY_NAME)",
+    "groups": [
+        {
+			"name": "authenticationOptions",
+			"displayName": "Authentication",
+			"isExpanded": false
+		}
+    ],
+    "inputs": [
+        {
+            "groupName": "authenticationOptions",
+            "name": "personalAccessToken",
+            "type": "string",
+            "label": "Personal Access Token",
+            "defaultValue": "",
+            "required": true,
+            "helpMarkDown": "To generate a token, have a look [here](https://docs.microsoft.com/fr-fr/vsts/integrate/get-started/authentication/pats)."
+        }
+    ],
+    "execution": {
+        "Node": {
+            "target": "index.js"
+        }
+    }
+}

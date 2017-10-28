@@ -1,0 +1,36 @@
+{
+    "manifestVersion": 1,
+    "id": "vsts-extensions-renovate-me",
+    "name": "Renovate Me",
+    "version": "0.0.11",
+    "publisher": "jyc",
+    "targets": [
+        {
+            "id": "Microsoft.VisualStudio.Services"
+        }
+    ],    
+    "description": "Renovate embedded in VSTS!",
+    "categories": [
+        "Build and release"
+    ],
+    "icons": {
+        "default": "images/extension-icon.png"        
+    },
+    "files": [
+        {
+            "path": "buildtask"
+        }
+    ],
+    "contributions": [
+        {
+            "id": "default-build-task",
+            "type": "ms.vss-distributed-task.task",
+            "targets": [
+                "ms.vss-distributed-task.tasks"
+            ],
+            "properties": {
+                "name": "renovateMe/buildtask"
+            }
+        }
+    ]
+}
