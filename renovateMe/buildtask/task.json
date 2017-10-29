@@ -3,7 +3,7 @@
     "name": "RenovateMe",
     "friendlyName": "Renovate Me",
     "description": "Renovate your libs on your selected VSTS repo",
-    "helpMarkDown": "",
+    "helpMarkDown": "[Renovate Me](https://marketplace.visualstudio.com/items?itemName=jyc.vsts-extensions-renovate-me) based on [renovate](https://github.com/singapore/renovate)",
     "category": "Utility",
     "author": "Jean-Yves COUET",
     "version": {

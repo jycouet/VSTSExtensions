@@ -8,24 +8,45 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const npmRun = require('npm-run');
 const tl = require("vsts-task-lib/task");
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
-        const personalAccessToken = tl.getInput("personalAccessToken");
+        process.env["VSTS_TOKEN"] = tl.getInput("personalAccessToken");
         const repo = process.env["BUILD_REPOSITORY_NAME"];
         const instance = process.env["SYSTEM_TEAMFOUNDATIONSERVERURI"];
-        const cmd = `renovate ${repo} --token ${personalAccessToken} --platform vsts --endpoint ${instance}DefaultCollection`;
-        if (process.env["LOG_LEVEL"] === 'debug') {
-            console.log(cmd);
+        let isYarnCapable = false;
+        try {
+            tl.which('yarn', true);
+            tl.debug('Yeahhh, yarn is installed!');
+            isYarnCapable = true;
         }
-        npmRun.exec(cmd, {}, function (err, stdout, stderr) {
-            if (err) {
-                console.log('error', stderr);
-            }
-            console.log('Renovate done:', stdout);
+        catch (error) {
+            tl.warning(`yarn not found... don't worry we will use npm... but it will be slow...`);
+        }
+        const tool = isYarnCapable ? 'yarn' : 'npm';
+        const args = isYarnCapable ? 'global add renovate' : 'install renovate -g';
+        tl.debug(`Install renovate`);
+        yield exec(tool, args);
+        const renovateArgs = `${repo} --platform vsts --endpoint ${instance}DefaultCollection`;
+        tl.debug(`renovateArgs to run: ${renovateArgs}`);
+        tl.debug(`Run renovate`);
+        yield exec('renovate', renovateArgs);
+        tl.debug(`Renovate done`);
+    });
+}
+function exec(tool, args) {
+    return __awaiter(this, void 0, void 0, function* () {
+        let result = 0;
+        yield tl.exec(tool, args)
+            .catch(err => {
+            tl.error(`exec(${tool}, ${args}): ${err}`);
+            result = 0;
+        })
+            .then(c => {
+            result = 1;
         });
+        return result;
     });
 }
 run();
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJpbmRleC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7O0FBQUEsTUFBTSxNQUFNLEdBQUcsT0FBTyxDQUFDLFNBQVMsQ0FBQyxDQUFDO0FBQ2xDLHlDQUF5QztBQUV6Qzs7UUFFRSxNQUFNLG1CQUFtQixHQUFXLEVBQUUsQ0FBQyxRQUFRLENBQUMscUJBQXFCLENBQUMsQ0FBQztRQUN2RSxNQUFNLElBQUksR0FBRyxPQUFPLENBQUMsR0FBRyxDQUFDLHVCQUF1QixDQUFDLENBQUM7UUFDbEQsTUFBTSxRQUFRLEdBQUcsT0FBTyxDQUFDLEdBQUcsQ0FBQyxnQ0FBZ0MsQ0FBQyxDQUFBO1FBRTlELE1BQU0sR0FBRyxHQUFHLFlBQVksSUFBSSxZQUFZLG1CQUFtQiwrQkFBK0IsUUFBUSxtQkFBbUIsQ0FBQztRQUN0SCxFQUFFLENBQUMsQ0FBQyxPQUFPLENBQUMsR0FBRyxDQUFDLFdBQVcsQ0FBQyxLQUFLLE9BQU8sQ0FBQyxDQUFDLENBQUM7WUFDekMsT0FBTyxDQUFDLEdBQUcsQ0FBQyxHQUFHLENBQUMsQ0FBQztRQUNuQixDQUFDO1FBRUQsTUFBTSxDQUFDLElBQUksQ0FBQyxHQUFHLEVBQUUsRUFBRSxFQUNqQixVQUFVLEdBQVEsRUFBRSxNQUFXLEVBQUUsTUFBVztZQUMxQyxFQUFFLENBQUMsQ0FBQyxHQUFHLENBQUMsQ0FBQyxDQUFDO2dCQUNSLE9BQU8sQ0FBQyxHQUFHLENBQUMsT0FBTyxFQUFFLE1BQU0sQ0FBQyxDQUFDO1lBQy9CLENBQUM7WUFDRCxPQUFPLENBQUMsR0FBRyxDQUFDLGdCQUFnQixFQUFFLE1BQU0sQ0FBQyxDQUFDO1FBQ3hDLENBQUMsQ0FBQyxDQUFDO0lBQ1AsQ0FBQztDQUFBO0FBRUQsR0FBRyxFQUFFLENBQUMifQ==
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJpbmRleC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7O0FBQUEseUNBQXlDO0FBRXpDOztRQUdFLE9BQU8sQ0FBQyxHQUFHLENBQUMsWUFBWSxDQUFDLEdBQUcsRUFBRSxDQUFDLFFBQVEsQ0FBQyxxQkFBcUIsQ0FBQyxDQUFDO1FBQy9ELE1BQU0sSUFBSSxHQUFHLE9BQU8sQ0FBQyxHQUFHLENBQUMsdUJBQXVCLENBQUMsQ0FBQztRQUNsRCxNQUFNLFFBQVEsR0FBRyxPQUFPLENBQUMsR0FBRyxDQUFDLGdDQUFnQyxDQUFDLENBQUE7UUFHOUQsSUFBSSxhQUFhLEdBQUcsS0FBSyxDQUFDO1FBQzFCLElBQUksQ0FBQztZQUNILEVBQUUsQ0FBQyxLQUFLLENBQUMsTUFBTSxFQUFFLElBQUksQ0FBQyxDQUFDO1lBQ3ZCLEVBQUUsQ0FBQyxLQUFLLENBQUMsNEJBQTRCLENBQUMsQ0FBQTtZQUN0QyxhQUFhLEdBQUcsSUFBSSxDQUFDO1FBQ3ZCLENBQUM7UUFBQyxLQUFLLENBQUMsQ0FBQyxLQUFLLENBQUMsQ0FBQyxDQUFDO1lBQ2YsRUFBRSxDQUFDLE9BQU8sQ0FBQyx5RUFBeUUsQ0FBQyxDQUFBO1FBQ3ZGLENBQUM7UUFHRCxNQUFNLElBQUksR0FBRyxhQUFhLENBQUMsQ0FBQyxDQUFDLE1BQU0sQ0FBQyxDQUFDLENBQUMsS0FBSyxDQUFDO1FBQzVDLE1BQU0sSUFBSSxHQUFHLGFBQWEsQ0FBQyxDQUFDLENBQUMscUJBQXFCLENBQUMsQ0FBQyxDQUFDLHFCQUFxQixDQUFDO1FBRzNFLEVBQUUsQ0FBQyxLQUFLLENBQUMsa0JBQWtCLENBQUMsQ0FBQztRQUM3QixNQUFNLElBQUksQ0FBQyxJQUFJLEVBQUUsSUFBSSxDQUFDLENBQUM7UUFHdkIsTUFBTSxZQUFZLEdBQUcsR0FBRyxJQUFJLCtCQUErQixRQUFRLG1CQUFtQixDQUFDO1FBQ3ZGLEVBQUUsQ0FBQyxLQUFLLENBQUMsd0JBQXdCLFlBQVksRUFBRSxDQUFDLENBQUM7UUFHakQsRUFBRSxDQUFDLEtBQUssQ0FBQyxjQUFjLENBQUMsQ0FBQztRQUN6QixNQUFNLElBQUksQ0FBQyxVQUFVLEVBQUUsWUFBWSxDQUFDLENBQUM7UUFHckMsRUFBRSxDQUFDLEtBQUssQ0FBQyxlQUFlLENBQUMsQ0FBQztJQUM1QixDQUFDO0NBQUE7QUFFRCxjQUFvQixJQUFZLEVBQUUsSUFBWTs7UUFDNUMsSUFBSSxNQUFNLEdBQUcsQ0FBQyxDQUFDO1FBQ2YsTUFBTSxFQUFFLENBQUMsSUFBSSxDQUFDLElBQUksRUFBRSxJQUFJLENBQUM7YUFDdEIsS0FBSyxDQUFDLEdBQUcsQ0FBQyxFQUFFO1lBQ1gsRUFBRSxDQUFDLEtBQUssQ0FBQyxRQUFRLElBQUksS0FBSyxJQUFJLE1BQU0sR0FBRyxFQUFFLENBQUMsQ0FBQztZQUMzQyxNQUFNLEdBQUcsQ0FBQyxDQUFDO1FBQ2IsQ0FBQyxDQUFDO2FBQ0QsSUFBSSxDQUFDLENBQUMsQ0FBQyxFQUFFO1lBQ1IsTUFBTSxHQUFHLENBQUMsQ0FBQztRQUNiLENBQUMsQ0FBQyxDQUFDO1FBQ0gsTUFBTSxDQUFDLE1BQU0sQ0FBQztJQUNsQixDQUFDO0NBQUE7QUFFRCxHQUFHLEVBQUUsQ0FBQyJ9
