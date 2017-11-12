@@ -14,12 +14,26 @@
     "instanceNameFormat": "Renovate",
     "groups": [
         {
+			"name": "renovateOptions",
+			"displayName": "Options",
+			"isExpanded": false
+		},
+        {
 			"name": "authenticationOptions",
 			"displayName": "Authentication",
 			"isExpanded": false
 		}
     ],
     "inputs": [
+        {
+            "groupName": "renovateOptions",
+            "name": "renovateOptionsVersion",
+            "type": "string",
+            "label": "Renovate version to use",
+            "defaultValue": "latest",
+            "required": true,
+            "helpMarkDown": "By default we are using latest, but you can specify the exact version ('10.3.0' minimum for VSTS support)"
+        },
         {
             "groupName": "authenticationOptions",
             "name": "personalAccessToken",

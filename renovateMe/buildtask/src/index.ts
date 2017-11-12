@@ -4,9 +4,10 @@ async function run() {
 
   // set VSTS_TOKEN
   process.env["VSTS_TOKEN"] = tl.getInput("personalAccessToken");
+  const renovateOptionsVersion = tl.getInput("renovateOptionsVersion");
   const repo = process.env["BUILD_REPOSITORY_NAME"];
   const instance = process.env["SYSTEM_TEAMFOUNDATIONSERVERURI"]
-  
+
   // is yarn capable
   let isYarnCapable = false;
   try {
@@ -16,10 +17,10 @@ async function run() {
   } catch (error) {
     tl.warning(`yarn not found... don't worry we will use npm... but it will be slow...`)
   }
-  
+
   // prepare install renovate
   const tool = isYarnCapable ? 'yarn' : 'npm';
-  const args = isYarnCapable ? 'global add renovate' : 'install renovate -g';
+  const args = isYarnCapable ? 'global add renovate@' + renovateOptionsVersion : 'install -g renovate@' + renovateOptionsVersion;
 
   // install renovate
   tl.debug(`Install renovate`);
@@ -28,7 +29,7 @@ async function run() {
   // prepare run renovate
   const renovateArgs = `${repo} --platform vsts --endpoint ${instance}DefaultCollection`;
   tl.debug(`renovateArgs to run: ${renovateArgs}`);
-  
+
   // run renovate
   tl.debug(`Run renovate`);
   await exec('renovate', renovateArgs);
@@ -47,7 +48,7 @@ async function exec(tool: string, args: string) {
     .then(c => {
       result = 1;
     });
-    return result;
+  return result;
 }
 
 run();
