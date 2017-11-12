@@ -2,8 +2,12 @@
     "manifestVersion": 1,
     "id": "vsts-extensions-renovate-me",
     "name": "Renovate Me",
-    "version": "0.1.5",
+    "version": "0.1.9",
     "publisher": "jyc",
+    "public": true,
+    "galleryFlags": [
+        "Preview"
+    ],
     "targets": [
         {
             "id": "Microsoft.VisualStudio.Services"
