@@ -16,8 +16,8 @@ This build task is helping you to use [renovate](https://github.com/singapore/re
 
 ### tasks
 
-![tasks](images/build_tasks.png)
+![tasks](https://raw.githubusercontent.com/jycouet/VSTSExtensions/master/renovateMe/images/build_tasks.png)
 
 ### options
 
-![options](images/build_options.png)
+![options](https://raw.githubusercontent.com/jycouet/VSTSExtensions/master/renovateMe/images/build_options.png)
