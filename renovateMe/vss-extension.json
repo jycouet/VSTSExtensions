@@ -2,7 +2,7 @@
     "manifestVersion": 1,
     "id": "vsts-extensions-renovate-me",
     "name": "Renovate Me",
-    "version": "0.1.9",
+    "version": "0.1.26",
     "publisher": "jyc",
     "public": true,
     "galleryFlags": [
@@ -39,6 +39,10 @@
             "uri": "https://github.com/jycouet/VSTSExtensions/issues"
         }
     },
+    "repository": {
+		"type": "git",
+		"uri":	"https://github.com/jycouet/VSTSExtensions"
+	},
     "branding": {
         "color": "#55B541",
         "theme": "dark"
@@ -46,6 +50,12 @@
     "files": [
         {
             "path": "buildtask"
+        },
+        {
+            "path": "images/build_tasks.png"
+        },
+        {
+            "path": "images/build_options.png"
         }
     ],
     "contributions": [

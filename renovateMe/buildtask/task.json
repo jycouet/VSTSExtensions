@@ -17,11 +17,6 @@
 			"name": "renovateOptions",
 			"displayName": "Options",
 			"isExpanded": false
-		},
-        {
-			"name": "authenticationOptions",
-			"displayName": "Authentication",
-			"isExpanded": false
 		}
     ],
     "inputs": [
@@ -33,15 +28,6 @@
             "defaultValue": "latest",
             "required": true,
             "helpMarkDown": "By default we are using latest, but you can specify the exact version ('10.3.0' minimum for VSTS support)"
-        },
-        {
-            "groupName": "authenticationOptions",
-            "name": "personalAccessToken",
-            "type": "string",
-            "label": "Personal Access Token",
-            "defaultValue": "",
-            "required": true,
-            "helpMarkDown": "To generate a token, have a look [here](https://docs.microsoft.com/fr-fr/vsts/integrate/get-started/authentication/pats)."
         }
     ],
     "execution": {
