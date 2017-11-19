@@ -2,7 +2,7 @@
     "manifestVersion": 1,
     "id": "vsts-extensions-renovate-me",
     "name": "Renovate Me",
-    "version": "0.2.2",
+    "version": "0.2.4",
     "publisher": "jyc",
     "public": true,
     "galleryFlags": [
@@ -50,12 +50,6 @@
     "files": [
         {
             "path": "buildtask"
-        },
-        {
-            "path": "images/build_tasks.png"
-        },
-        {
-            "path": "images/build_options.png"
         }
     ],
     "contributions": [
