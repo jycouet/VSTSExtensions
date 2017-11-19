@@ -7,6 +7,12 @@ class ExecutionOptions {
 
 async function run(): Promise<void> {
 
+  // vsts Source Code Provider
+  const sourceCodeProvider: string = process.env["BUILD_REPOSITORY_PROVIDER"] || '';
+  if (sourceCodeProvider !== 'TfsGit') {
+    throw new Error(`Sorry, we support only TfsGit for now. Please post an issue if you need more :)`);
+  }
+  
   // vsts Task Token
   const token: string | undefined = taskLib.getEndpointAuthorizationParameter('SYSTEMVSSCONNECTION', 'ACCESSTOKEN', false);
   if (!token || token === '') {
