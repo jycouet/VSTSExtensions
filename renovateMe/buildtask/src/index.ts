@@ -4,14 +4,22 @@ import * as taskLib from 'vsts-task-lib/task';
 async function run() {
 
   // vsts Task Token
-  let token: string = tl.getEndpointAuthorizationParameter('SYSTEMVSSCONNECTION', 'ACCESSTOKEN', false);
+  const token: string = tl.getEndpointAuthorizationParameter('SYSTEMVSSCONNECTION', 'ACCESSTOKEN', false);
   if (!token || token === '') {
-    throw Error(`You need to 'Allow scripts to access OAuth token' in the 'options' tab of your build system.`);
+    throw new Error(`You need to 'Allow scripts to access OAuth token' in the 'options' tab of your build system.`);
   }
 
   const renovateOptionsVersion = tl.getInput("renovateOptionsVersion");
-  const repo = process.env["BUILD_REPOSITORY_NAME"];
-  const instance = process.env["SYSTEM_TEAMFOUNDATIONSERVERURI"]
+
+  const repo: string | null = process.env["BUILD_REPOSITORY_NAME"];
+  if (!repo) {
+    throw new Error(`Could not determine repository name. This task may not be compatible with your build system.`);
+  }
+
+  const instance: string | null = process.env["SYSTEM_TEAMFOUNDATIONSERVERURI"];
+  if (!instance) {
+    throw new Error(`Could not determine build server uri. This task may not be compatible with your build system.`);
+  }
 
   // is yarn capable
   let isYarnCapable = false;
