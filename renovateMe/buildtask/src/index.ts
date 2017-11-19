@@ -1,4 +1,4 @@
-import * as tl from "vsts-task-lib/task";
+import * as taskLib from "vsts-task-lib/task";
 
 class ExecutionOptions {
   public tool: string;
@@ -8,12 +8,12 @@ class ExecutionOptions {
 async function run(): Promise<void> {
 
   // vsts Task Token
-  const token: string = tl.getEndpointAuthorizationParameter('SYSTEMVSSCONNECTION', 'ACCESSTOKEN', false);
+  const token: string | null = taskLib.getEndpointAuthorizationParameter('SYSTEMVSSCONNECTION', 'ACCESSTOKEN', false);
   if (!token || token === '') {
     throw new Error(`You need to 'Allow scripts to access OAuth token' in the 'options' tab of your build system.`);
   }
 
-  const renovateOptionsVersion = tl.getInput("renovateOptionsVersion");
+  const renovateOptionsVersion = taskLib.getInput("renovateOptionsVersion");
 
   const repo: string | null = process.env["BUILD_REPOSITORY_NAME"];
   if (!repo) {
@@ -28,11 +28,11 @@ async function run(): Promise<void> {
   // is yarn capable
   let isYarnCapable = false;
   try {
-    tl.which('yarn', true);
-    tl.debug('Yeahhh, yarn is installed!');
+    taskLib.which('yarn', true);
+    taskLib.debug('Yeahhh, yarn is installed!');
     isYarnCapable = true;
   } catch (error) {
-    tl.warning(`yarn not found... don't worry we will use npm... but it will be slower...`);
+    taskLib.warning(`yarn not found... don't worry we will use npm... but it will be slower...`);
   }
 
   // prepare to install renovate
@@ -41,38 +41,38 @@ async function run(): Promise<void> {
     : { tool: 'npm', arguments: `install -g renovate@${renovateOptionsVersion}` };
 
   // install renovate
-  tl.debug(`Install renovate`);
+  taskLib.debug(`Install renovate`);
   await exec(renovateInstallOptions);
   
   // prepare run renovate
   const renovateArgs: string = `${repo} --platform vsts --endpoint ${instance}DefaultCollection --token ${token}`;
-  tl.debug(`renovateArgs to run: ${renovateArgs}`);
+  taskLib.debug(`renovateArgs to run: ${renovateArgs}`);
 
   // run renovate
-  tl.debug(`Run renovate`);
+  taskLib.debug(`Run renovate`);
   await exec({
     tool: 'renovate',
     arguments: renovateArgs
   });
   
   // the end!
-  tl.debug(`Renovate done`);
+  taskLib.debug(`Renovate done`);
 }
 
 async function exec(options: ExecutionOptions): Promise<void> {
   try {
-    await tl.exec(options!.tool, options!.arguments);
+    await taskLib.exec(options!.tool, options!.arguments);
   } catch (error) {
     const errorMessage: string = `exec(${options!.tool}, ${options!.arguments}): ${error}`;
-    tl.error(errorMessage);
+    taskLib.error(errorMessage);
     throw new Error(errorMessage);
   }
 }
 
 run()
   .then(() =>
-    tl.setResult(tl.TaskResult.Succeeded, "")
+    taskLib.setResult(taskLib.TaskResult.Succeeded, "")
   )
   .catch((err) =>
-    tl.setResult(tl.TaskResult.Failed, err)
+    taskLib.setResult(taskLib.TaskResult.Failed, err)
   );
