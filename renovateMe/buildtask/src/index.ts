@@ -8,19 +8,19 @@ class ExecutionOptions {
 async function run(): Promise<void> {
 
   // vsts Task Token
-  const token: string | null = taskLib.getEndpointAuthorizationParameter('SYSTEMVSSCONNECTION', 'ACCESSTOKEN', false);
+  const token: string | undefined = taskLib.getEndpointAuthorizationParameter('SYSTEMVSSCONNECTION', 'ACCESSTOKEN', false);
   if (!token || token === '') {
     throw new Error(`You need to 'Allow scripts to access OAuth token' in the 'options' tab of your build system.`);
   }
 
   const renovateOptionsVersion = taskLib.getInput("renovateOptionsVersion");
 
-  const repo: string | null = process.env["BUILD_REPOSITORY_NAME"];
+  const repo: string | undefined = process.env["BUILD_REPOSITORY_NAME"];
   if (!repo) {
     throw new Error(`Could not determine repository name. This task may not be compatible with your build system.`);
   }
 
-  const instance: string | null = process.env["SYSTEM_TEAMFOUNDATIONSERVERURI"];
+  const instance: string | undefined = process.env["SYSTEM_TEAMFOUNDATIONSERVERURI"];
   if (!instance) {
     throw new Error(`Could not determine build server uri. This task may not be compatible with your build system.`);
   }
