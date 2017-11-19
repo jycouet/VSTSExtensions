@@ -8,49 +8,61 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const tl = require("vsts-task-lib/task");
 const taskLib = require("vsts-task-lib/task");
+class ExecutionOptions {
+}
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
-        let token = tl.getEndpointAuthorizationParameter('SYSTEMVSSCONNECTION', 'ACCESSTOKEN', false);
+        const token = taskLib.getEndpointAuthorizationParameter('SYSTEMVSSCONNECTION', 'ACCESSTOKEN', false);
         if (!token || token === '') {
-            throw Error(`You need to 'Allow scripts to access OAuth token' in the 'options' tab of your build system.`);
+            throw new Error(`You need to 'Allow scripts to access OAuth token' in the 'options' tab of your build system.`);
         }
-        const renovateOptionsVersion = tl.getInput("renovateOptionsVersion");
+        const renovateOptionsVersion = taskLib.getInput("renovateOptionsVersion");
         const repo = process.env["BUILD_REPOSITORY_NAME"];
+        if (!repo) {
+            throw new Error(`Could not determine repository name. This task may not be compatible with your build system.`);
+        }
         const instance = process.env["SYSTEM_TEAMFOUNDATIONSERVERURI"];
+        if (!instance) {
+            throw new Error(`Could not determine build server uri. This task may not be compatible with your build system.`);
+        }
         let isYarnCapable = false;
         try {
-            tl.which('yarn', true);
-            tl.debug('Yeahhh, yarn is installed!');
+            taskLib.which('yarn', true);
+            taskLib.debug('Yeahhh, yarn is installed!');
             isYarnCapable = true;
         }
         catch (error) {
-            tl.warning(`yarn not found... don't worry we will use npm... but it will be slower...`);
+            taskLib.warning(`yarn not found... don't worry we will use npm... but it will be slower...`);
         }
-        const tool = isYarnCapable ? 'yarn' : 'npm';
-        const args = isYarnCapable ? 'global add renovate@' + renovateOptionsVersion : 'install -g renovate@' + renovateOptionsVersion;
-        tl.debug(`Install renovate`);
-        yield exec(tool, args);
+        const renovateInstallOptions = isYarnCapable
+            ? { tool: 'yarn', arguments: `global add renovate@${renovateOptionsVersion}` }
+            : { tool: 'npm', arguments: `install -g renovate@${renovateOptionsVersion}` };
+        taskLib.debug(`Install renovate`);
+        yield exec(renovateInstallOptions);
         const renovateArgs = `${repo} --platform vsts --endpoint ${instance}DefaultCollection --token ${token}`;
-        tl.debug(`renovateArgs to run: ${renovateArgs}`);
-        tl.debug(`Run renovate`);
-        yield exec('renovate', renovateArgs);
-        tl.debug(`Renovate done`);
+        taskLib.debug(`renovateArgs to run: ${renovateArgs}`);
+        taskLib.debug(`Run renovate`);
+        yield exec({
+            tool: 'renovate',
+            arguments: renovateArgs
+        });
+        taskLib.debug(`Renovate done`);
     });
 }
-function exec(tool, args) {
+function exec(options) {
     return __awaiter(this, void 0, void 0, function* () {
-        yield tl.exec(tool, args)
-            .catch(err => {
-            tl.error(`exec(${tool}, ${args}): ${err}`);
-            throw Error(`exec(${tool}, ${args}): ${err}`);
-        })
-            .then();
+        try {
+            yield taskLib.exec(options.tool, options.arguments);
+        }
+        catch (error) {
+            const errorMessage = `exec(${options.tool}, ${options.arguments}): ${error}`;
+            taskLib.error(errorMessage);
+            throw new Error(errorMessage);
+        }
     });
 }
 run()
     .then(() => taskLib.setResult(taskLib.TaskResult.Succeeded, ""))
     .catch((err) => taskLib.setResult(taskLib.TaskResult.Failed, err));
-;
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJpbmRleC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7O0FBQUEseUNBQXlDO0FBQ3pDLDhDQUE4QztBQUU5Qzs7UUFHRSxJQUFJLEtBQUssR0FBVyxFQUFFLENBQUMsaUNBQWlDLENBQUMscUJBQXFCLEVBQUUsYUFBYSxFQUFFLEtBQUssQ0FBQyxDQUFDO1FBQ3RHLEVBQUUsQ0FBQyxDQUFDLENBQUMsS0FBSyxJQUFJLEtBQUssS0FBSyxFQUFFLENBQUMsQ0FBQyxDQUFDO1lBQzNCLE1BQU0sS0FBSyxDQUFDLDhGQUE4RixDQUFDLENBQUM7UUFDOUcsQ0FBQztRQUVELE1BQU0sc0JBQXNCLEdBQUcsRUFBRSxDQUFDLFFBQVEsQ0FBQyx3QkFBd0IsQ0FBQyxDQUFDO1FBQ3JFLE1BQU0sSUFBSSxHQUFHLE9BQU8sQ0FBQyxHQUFHLENBQUMsdUJBQXVCLENBQUMsQ0FBQztRQUNsRCxNQUFNLFFBQVEsR0FBRyxPQUFPLENBQUMsR0FBRyxDQUFDLGdDQUFnQyxDQUFDLENBQUE7UUFHOUQsSUFBSSxhQUFhLEdBQUcsS0FBSyxDQUFDO1FBQzFCLElBQUksQ0FBQztZQUNILEVBQUUsQ0FBQyxLQUFLLENBQUMsTUFBTSxFQUFFLElBQUksQ0FBQyxDQUFDO1lBQ3ZCLEVBQUUsQ0FBQyxLQUFLLENBQUMsNEJBQTRCLENBQUMsQ0FBQTtZQUN0QyxhQUFhLEdBQUcsSUFBSSxDQUFDO1FBQ3ZCLENBQUM7UUFBQyxLQUFLLENBQUMsQ0FBQyxLQUFLLENBQUMsQ0FBQyxDQUFDO1lBQ2YsRUFBRSxDQUFDLE9BQU8sQ0FBQywyRUFBMkUsQ0FBQyxDQUFBO1FBQ3pGLENBQUM7UUFHRCxNQUFNLElBQUksR0FBRyxhQUFhLENBQUMsQ0FBQyxDQUFDLE1BQU0sQ0FBQyxDQUFDLENBQUMsS0FBSyxDQUFDO1FBQzVDLE1BQU0sSUFBSSxHQUFHLGFBQWEsQ0FBQyxDQUFDLENBQUMsc0JBQXNCLEdBQUcsc0JBQXNCLENBQUMsQ0FBQyxDQUFDLHNCQUFzQixHQUFHLHNCQUFzQixDQUFDO1FBRy9ILEVBQUUsQ0FBQyxLQUFLLENBQUMsa0JBQWtCLENBQUMsQ0FBQztRQUM3QixNQUFNLElBQUksQ0FBQyxJQUFJLEVBQUUsSUFBSSxDQUFDLENBQUM7UUFHdkIsTUFBTSxZQUFZLEdBQUcsR0FBRyxJQUFJLCtCQUErQixRQUFRLDZCQUE2QixLQUFLLEVBQUUsQ0FBQztRQUN4RyxFQUFFLENBQUMsS0FBSyxDQUFDLHdCQUF3QixZQUFZLEVBQUUsQ0FBQyxDQUFDO1FBR2pELEVBQUUsQ0FBQyxLQUFLLENBQUMsY0FBYyxDQUFDLENBQUM7UUFDekIsTUFBTSxJQUFJLENBQUMsVUFBVSxFQUFFLFlBQVksQ0FBQyxDQUFDO1FBR3JDLEVBQUUsQ0FBQyxLQUFLLENBQUMsZUFBZSxDQUFDLENBQUM7SUFDNUIsQ0FBQztDQUFBO0FBRUQsY0FBb0IsSUFBWSxFQUFFLElBQVk7O1FBQzVDLE1BQU0sRUFBRSxDQUFDLElBQUksQ0FBQyxJQUFJLEVBQUUsSUFBSSxDQUFDO2FBQ3RCLEtBQUssQ0FBQyxHQUFHLENBQUMsRUFBRTtZQUNYLEVBQUUsQ0FBQyxLQUFLLENBQUMsUUFBUSxJQUFJLEtBQUssSUFBSSxNQUFNLEdBQUcsRUFBRSxDQUFDLENBQUM7WUFDM0MsTUFBTSxLQUFLLENBQUMsUUFBUSxJQUFJLEtBQUssSUFBSSxNQUFNLEdBQUcsRUFBRSxDQUFDLENBQUM7UUFDaEQsQ0FBQyxDQUFDO2FBQ0QsSUFBSSxFQUFFLENBQUE7SUFDWCxDQUFDO0NBQUE7QUFFRCxHQUFHLEVBQUU7S0FDRixJQUFJLENBQUMsR0FBRyxFQUFFLENBQ1QsT0FBTyxDQUFDLFNBQVMsQ0FBQyxPQUFPLENBQUMsVUFBVSxDQUFDLFNBQVMsRUFBRSxFQUFFLENBQUMsQ0FDcEQ7S0FDQSxLQUFLLENBQUMsQ0FBQyxHQUFHLEVBQUUsRUFBRSxDQUNiLE9BQU8sQ0FBQyxTQUFTLENBQUMsT0FBTyxDQUFDLFVBQVUsQ0FBQyxNQUFNLEVBQUUsR0FBRyxDQUFDLENBQ2xELENBQUM7QUFBQSxDQUFDIn0=
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJpbmRleC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7O0FBQUEsOENBQThDO0FBRTlDO0NBR0M7QUFFRDs7UUFHRSxNQUFNLEtBQUssR0FBdUIsT0FBTyxDQUFDLGlDQUFpQyxDQUFDLHFCQUFxQixFQUFFLGFBQWEsRUFBRSxLQUFLLENBQUMsQ0FBQztRQUN6SCxFQUFFLENBQUMsQ0FBQyxDQUFDLEtBQUssSUFBSSxLQUFLLEtBQUssRUFBRSxDQUFDLENBQUMsQ0FBQztZQUMzQixNQUFNLElBQUksS0FBSyxDQUFDLDhGQUE4RixDQUFDLENBQUM7UUFDbEgsQ0FBQztRQUVELE1BQU0sc0JBQXNCLEdBQUcsT0FBTyxDQUFDLFFBQVEsQ0FBQyx3QkFBd0IsQ0FBQyxDQUFDO1FBRTFFLE1BQU0sSUFBSSxHQUF1QixPQUFPLENBQUMsR0FBRyxDQUFDLHVCQUF1QixDQUFDLENBQUM7UUFDdEUsRUFBRSxDQUFDLENBQUMsQ0FBQyxJQUFJLENBQUMsQ0FBQyxDQUFDO1lBQ1YsTUFBTSxJQUFJLEtBQUssQ0FBQyw4RkFBOEYsQ0FBQyxDQUFDO1FBQ2xILENBQUM7UUFFRCxNQUFNLFFBQVEsR0FBdUIsT0FBTyxDQUFDLEdBQUcsQ0FBQyxnQ0FBZ0MsQ0FBQyxDQUFDO1FBQ25GLEVBQUUsQ0FBQyxDQUFDLENBQUMsUUFBUSxDQUFDLENBQUMsQ0FBQztZQUNkLE1BQU0sSUFBSSxLQUFLLENBQUMsK0ZBQStGLENBQUMsQ0FBQztRQUNuSCxDQUFDO1FBR0QsSUFBSSxhQUFhLEdBQUcsS0FBSyxDQUFDO1FBQzFCLElBQUksQ0FBQztZQUNILE9BQU8sQ0FBQyxLQUFLLENBQUMsTUFBTSxFQUFFLElBQUksQ0FBQyxDQUFDO1lBQzVCLE9BQU8sQ0FBQyxLQUFLLENBQUMsNEJBQTRCLENBQUMsQ0FBQztZQUM1QyxhQUFhLEdBQUcsSUFBSSxDQUFDO1FBQ3ZCLENBQUM7UUFBQyxLQUFLLENBQUMsQ0FBQyxLQUFLLENBQUMsQ0FBQyxDQUFDO1lBQ2YsT0FBTyxDQUFDLE9BQU8sQ0FBQywyRUFBMkUsQ0FBQyxDQUFDO1FBQy9GLENBQUM7UUFHRCxNQUFNLHNCQUFzQixHQUFxQixhQUFhO1lBQzVELENBQUMsQ0FBQyxFQUFFLElBQUksRUFBRSxNQUFNLEVBQUUsU0FBUyxFQUFFLHVCQUF1QixzQkFBc0IsRUFBRSxFQUFFO1lBQzlFLENBQUMsQ0FBQyxFQUFFLElBQUksRUFBRSxLQUFLLEVBQUUsU0FBUyxFQUFFLHVCQUF1QixzQkFBc0IsRUFBRSxFQUFFLENBQUM7UUFHaEYsT0FBTyxDQUFDLEtBQUssQ0FBQyxrQkFBa0IsQ0FBQyxDQUFDO1FBQ2xDLE1BQU0sSUFBSSxDQUFDLHNCQUFzQixDQUFDLENBQUM7UUFHbkMsTUFBTSxZQUFZLEdBQVcsR0FBRyxJQUFJLCtCQUErQixRQUFRLDZCQUE2QixLQUFLLEVBQUUsQ0FBQztRQUNoSCxPQUFPLENBQUMsS0FBSyxDQUFDLHdCQUF3QixZQUFZLEVBQUUsQ0FBQyxDQUFDO1FBR3RELE9BQU8sQ0FBQyxLQUFLLENBQUMsY0FBYyxDQUFDLENBQUM7UUFDOUIsTUFBTSxJQUFJLENBQUM7WUFDVCxJQUFJLEVBQUUsVUFBVTtZQUNoQixTQUFTLEVBQUUsWUFBWTtTQUN4QixDQUFDLENBQUM7UUFHSCxPQUFPLENBQUMsS0FBSyxDQUFDLGVBQWUsQ0FBQyxDQUFDO0lBQ2pDLENBQUM7Q0FBQTtBQUVELGNBQW9CLE9BQXlCOztRQUMzQyxJQUFJLENBQUM7WUFDSCxNQUFNLE9BQU8sQ0FBQyxJQUFJLENBQUMsT0FBUSxDQUFDLElBQUksRUFBRSxPQUFRLENBQUMsU0FBUyxDQUFDLENBQUM7UUFDeEQsQ0FBQztRQUFDLEtBQUssQ0FBQyxDQUFDLEtBQUssQ0FBQyxDQUFDLENBQUM7WUFDZixNQUFNLFlBQVksR0FBVyxRQUFRLE9BQVEsQ0FBQyxJQUFJLEtBQUssT0FBUSxDQUFDLFNBQVMsTUFBTSxLQUFLLEVBQUUsQ0FBQztZQUN2RixPQUFPLENBQUMsS0FBSyxDQUFDLFlBQVksQ0FBQyxDQUFDO1lBQzVCLE1BQU0sSUFBSSxLQUFLLENBQUMsWUFBWSxDQUFDLENBQUM7UUFDaEMsQ0FBQztJQUNILENBQUM7Q0FBQTtBQUVELEdBQUcsRUFBRTtLQUNGLElBQUksQ0FBQyxHQUFHLEVBQUUsQ0FDVCxPQUFPLENBQUMsU0FBUyxDQUFDLE9BQU8sQ0FBQyxVQUFVLENBQUMsU0FBUyxFQUFFLEVBQUUsQ0FBQyxDQUNwRDtLQUNBLEtBQUssQ0FBQyxDQUFDLEdBQUcsRUFBRSxFQUFFLENBQ2IsT0FBTyxDQUFDLFNBQVMsQ0FBQyxPQUFPLENBQUMsVUFBVSxDQUFDLE1BQU0sRUFBRSxHQUFHLENBQUMsQ0FDbEQsQ0FBQyJ9
