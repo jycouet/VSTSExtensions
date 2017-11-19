@@ -26,8 +26,8 @@ async function run(): Promise<void> {
     throw new Error(`Could not determine repository name. This task may not be compatible with your build system.`);
   }
 
-  const instance: string | undefined = process.env["SYSTEM_TEAMFOUNDATIONSERVERURI"];
-  if (!instance) {
+  const endpointAndCollection: string | undefined = process.env["SYSTEM_TEAMFOUNDATIONCOLLECTIONURI"];
+  if (!endpointAndCollection) {
     throw new Error(`Could not determine build server uri. This task may not be compatible with your build system.`);
   }
 
@@ -51,7 +51,7 @@ async function run(): Promise<void> {
   await exec(renovateInstallOptions);
   
   // prepare run renovate
-  const renovateArgs: string = `${repo} --platform vsts --endpoint ${instance}DefaultCollection --token ${token}`;
+  const renovateArgs: string = `${repo} --platform vsts --endpoint ${endpointAndCollection} --token ${token}`;
   taskLib.debug(`renovateArgs to run: ${renovateArgs}`);
 
   // run renovate
