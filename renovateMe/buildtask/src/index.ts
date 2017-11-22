@@ -21,6 +21,11 @@ async function run(): Promise<void> {
 
   const renovateOptionsVersion = taskLib.getInput("renovateOptionsVersion");
 
+  const project: string | undefined = process.env["SYSTEM_TEAMPROJECT"];
+  if (!project) {
+    throw new Error(`Could not determine project name. This task may not be compatible with your build system.`);
+  }
+
   const repo: string | undefined = process.env["BUILD_REPOSITORY_NAME"];
   if (!repo) {
     throw new Error(`Could not determine repository name. This task may not be compatible with your build system.`);
@@ -51,7 +56,7 @@ async function run(): Promise<void> {
   await exec(renovateInstallOptions);
   
   // prepare run renovate
-  const renovateArgs: string = `${repo} --platform vsts --endpoint ${endpointAndCollection} --token ${token}`;
+  const renovateArgs: string = `${project}/${repo} --platform vsts --endpoint ${endpointAndCollection} --token ${token}`;
   taskLib.debug(`renovateArgs to run: ${renovateArgs}`);
 
   // run renovate
