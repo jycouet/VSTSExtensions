@@ -15,7 +15,7 @@ This build task is helping you to use [renovate](https://github.com/singapore/re
 
 ## In action
 
-![gif](https://raw.githubusercontent.com/jycouet/VSTSExtensions/master/renovateMe/images/renovate_me.png)
+![gif](https://raw.githubusercontent.com/jycouet/VSTSExtensions/master/renovateMe/images/renovate_me.gif)
 
 ## Basic build definition
 
