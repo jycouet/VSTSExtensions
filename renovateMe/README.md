@@ -13,6 +13,10 @@ This build task is helping you to use [renovate](https://github.com/singapore/re
 - Make sure you are on a node > 8.8.x
 - _Optional_: install yarn
 
+## In action
+
+![gif](https://raw.githubusercontent.com/jycouet/VSTSExtensions/master/renovateMe/images/renovate_me.png)
+
 ## Basic build definition
 
 ### tasks

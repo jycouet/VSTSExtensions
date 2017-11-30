@@ -20,6 +20,7 @@ async function run(): Promise<void> {
   }
 
   const renovateOptionsVersion = taskLib.getInput("renovateOptionsVersion");
+  const renovateOptionsArgs = taskLib.getInput("renovateOptionsArgs");
 
   const project: string | undefined = process.env["SYSTEM_TEAMPROJECT"];
   if (!project) {
@@ -56,7 +57,7 @@ async function run(): Promise<void> {
   await exec(renovateInstallOptions);
   
   // prepare run renovate
-  const renovateArgs: string = `${project}/${repo} --platform vsts --endpoint ${endpointAndCollection} --token ${token}`;
+  const renovateArgs: string = `${project}/${repo} --platform vsts --endpoint ${endpointAndCollection} --token ${token} ${renovateOptionsArgs}`;
   taskLib.debug(`renovateArgs to run: ${renovateArgs}`);
 
   // run renovate

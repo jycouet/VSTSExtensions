@@ -28,6 +28,15 @@
             "defaultValue": "latest",
             "required": true,
             "helpMarkDown": "By default we are using latest, but you can specify the exact version ('10.3.0' minimum for VSTS support)"
+        },
+        {
+            "groupName": "renovateOptions",
+            "name": "renovateOptionsArgs",
+            "type": "string",
+            "label": "Additional args",
+            "defaultValue": "",
+            "required": false,
+            "helpMarkDown": "example: `--ignore-unstable=false`, to see all args look at the [doc](https://renovateapp.com/docs/configuration-reference/configuration-options)"
         }
     ],
     "execution": {
