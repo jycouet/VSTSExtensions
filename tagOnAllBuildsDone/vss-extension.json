@@ -1,0 +1,66 @@
+{
+    "manifestVersion": 1,
+    "id": "vsts-extensions-tag-on-all-builds-done",
+    "name": "Tag On All Builds Done",
+    "version": "0.0.0",
+    "publisher": "jyc",
+    "public": true,
+    "galleryFlags": [
+        "Preview"
+    ],
+    "targets": [
+        {
+            "id": "Microsoft.VisualStudio.Services"
+        }
+    ],
+    "description": "The idea of this task is to tag allBuildsDone when the last build triggerd by a source is done.",
+    "categories": [
+        "Build and release"
+    ],
+    "icons": {
+        "default": "images/extension-icon.png"
+    },
+    "tags": [
+        "tags",
+        "Build",
+        "Release"
+    ],
+    "content": {
+        "details": {
+            "path": "tagOnAllBuildsDone/README.md"
+        }
+    },
+    "links": {
+        "repository": {
+            "uri": "https://github.com/jycouet/VSTSExtensions"
+        },
+        "issues": {
+            "uri": "https://github.com/jycouet/VSTSExtensions/issues"
+        }
+    },
+    "repository": {
+		"type": "git",
+		"uri":	"https://github.com/jycouet/VSTSExtensions"
+	},
+    "branding": {
+        "color": "#55B541",
+        "theme": "dark"
+    },
+    "files": [
+        {
+            "path": "buildtask"
+        }
+    ],
+    "contributions": [
+        {
+            "id": "default-build-task",
+            "type": "ms.vss-distributed-task.task",
+            "targets": [
+                "ms.vss-distributed-task.tasks"
+            ],
+            "properties": {
+                "name": "tagOnAllBuildsDone/buildtask"
+            }
+        }
+    ]
+}

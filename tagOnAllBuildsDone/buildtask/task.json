@@ -1,0 +1,20 @@
+{
+    "id": "c48c23aa-bbff-11e7-abc4-cec278b6b50a",
+    "name": "tagOnAllBuildsDone",
+    "friendlyName": "Tag On All Builds Done",
+    "description": "The idea of this task is to tag allBuildsDone when the last build triggerd by a source is done.",
+    "helpMarkDown": "[Tag On All Builds Done](https://marketplace.visualstudio.com/items?itemName=jyc.vsts-extensions-tag-on-all-builds-done)",
+    "category": "Utility",
+    "author": "Jean-Yves COUET",
+    "version": {
+        "Major": 0,
+        "Minor": 1,
+        "Patch": 0
+    },
+    "instanceNameFormat": "tagOnAllBuildsDone",
+    "execution": {
+        "Node": {
+            "target": "src/index.js"
+        }
+    }
+}

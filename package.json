@@ -5,12 +5,13 @@
   "author": "<jycouet@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "prepackage": "tsc",
-    "package": "yarn tfx extension create --manifest-globs renovateMe/vss-extension.json --output-path renovateMe/packages --rev-version"
+    "package_renovateMe": "tsc && yarn tfx extension create --manifest-globs renovateMe/vss-extension.json --output-path renovateMe/packages --rev-version",
+    "package_tagOnAllBuildsDone": "tsc && yarn tfx extension create --manifest-globs tagOnAllBuildsDone/vss-extension.json --output-path tagOnAllBuildsDone/packages --rev-version"
   },
   "devDependencies": {
     "@types/node": "^8.0.47",
     "tfx-cli": "^0.4.11",
+    "ts-node": "true3.3.0",
     "typescript": "^2.5.3"
   },
   "dependencies": {
