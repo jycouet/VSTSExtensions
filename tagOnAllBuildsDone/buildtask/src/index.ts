@@ -49,15 +49,13 @@ async function run(): Promise<void> {
       c.sourceVersion === currentBuildSourceVersion
     );
 
-  // console.log('buildWithSameBranchAndSource', buildWithSameBranchAndSource);
-
   if (buildWithSameBranchAndSource.length === 0) {
     taskLib.error('No build found! We should see at least the current build! Please contact the dev.');
   } else if (buildWithSameBranchAndSource.length === 1) {
-    taskLib.debug(`Let's tag the current build`);
-    taskLib.debug(`No other build running on the same source ('${currentBuildSourceBranch}' & '${currentBuildSourceVersion}')`);
+    console.log(`Let's tag the current build`);
+    console.log(`No other build running on the same source ('${currentBuildSourceBranch}' & '${currentBuildSourceVersion}')`);
     await vstsApi.getBuildApi().addBuildTags(['allBuildsDone'], project, buildWithSameBranchAndSource[0].id);
-    taskLib.debug(`Tag: 'allBuildsDone' added to the build ${buildWithSameBranchAndSource[0].id}`);    
+    console.log(`Tag: 'allBuildsDone' added to the build ${buildWithSameBranchAndSource[0].id}`);    
   } else {
     taskLib.warning(`Still ${buildWithSameBranchAndSource.length - 1} other build running on '${currentBuildSourceBranch}'`)
   }
