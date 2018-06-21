@@ -1,0 +1,60 @@
+{
+    "id": "e3e21af7-e370-4e5b-8b96-0554ee25a60d",
+    "name": "apollo-engine-schema",
+    "friendlyName": "Apollo Engine Schema",
+    "description": "Safely evolve your schema over time",
+    "helpMarkDown": "[VSTS Apollo Engine Schema](https://marketplace.visualstudio.com/items?itemName=jyc.vsts-extensions-apollo-engine-schema) based on [Apollo Engine](https://www.apollographql.com/docs/engine/schema-history.html)",
+    "category": "Utility",
+    "author": "Jean-Yves COUET",
+    "version": {
+        "Major": 0,
+        "Minor": 1,
+        "Patch": 0
+    },
+    "instanceNameFormat": "Apollo Engine Schema",
+    "groups": [
+        {
+			"name": "aesOptions",
+			"displayName": "Options",
+			"isExpanded": false
+		}
+    ],
+    "inputs": [
+        {
+            "groupName": "aesOptions",
+            "name": "aesOptionsAction",
+            "type": "pickList",
+            "label": "Schema action",
+            "defaultValue": "publish",
+            "options": {
+              "publish": "Publish",
+              "check": "Check"
+            },
+            "required": true,
+            "helpMarkDown": "Publish the schema or check the schema... that is the question :)"
+          },
+        {
+            "groupName": "aesOptions",
+            "name": "aesOptionsKey",
+            "type": "string",
+            "label": "Apollo Engine Key",
+            "defaultValue": "",
+            "required": true,
+            "helpMarkDown": "Apollo Engine: <API_KEY>"
+        },
+        {
+            "groupName": "aesOptions",
+            "name": "aesOptionsEndpoint",
+            "type": "string",
+            "label": "graphQL endpoint",
+            "defaultValue": "http://localhost:3000/graphql",
+            "required": true,
+            "helpMarkDown": "Help there: [help](https://www.apollographql.com/docs/engine/schema-history.html#schema-sources)"
+        }
+    ],
+    "execution": {
+        "Node": {
+            "target": "src/index.js"
+        }
+    }
+}

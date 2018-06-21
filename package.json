@@ -6,7 +6,8 @@
   "license": "MIT",
   "scripts": {
     "package_renovateMe": "tsc && yarn tfx extension create --manifest-globs renovateMe/vss-extension.json --output-path renovateMe/packages --rev-version",
-    "package_tagOnAllBuildsDone": "tsc && yarn tfx extension create --manifest-globs tagOnAllBuildsDone/vss-extension.json --output-path tagOnAllBuildsDone/packages --rev-version"
+    "package_tagOnAllBuildsDone": "tsc && yarn tfx extension create --manifest-globs tagOnAllBuildsDone/vss-extension.json --output-path tagOnAllBuildsDone/packages --rev-version",
+    "package_apolloEngineSchema": "tsc && yarn tfx extension create --manifest-globs apolloEngineSchema/vss-extension.json --output-path apolloEngineSchema/packages --rev-version"
   },
   "devDependencies": {
     "@types/node": "^8.0.47",
