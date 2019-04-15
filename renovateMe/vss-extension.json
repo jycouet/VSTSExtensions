@@ -2,7 +2,7 @@
     "manifestVersion": 1,
     "id": "vsts-extensions-renovate-me",
     "name": "Renovate Me",
-    "version": "0.3.4",
+    "version": "0.3.7",
     "publisher": "jyc",
     "public": true,
     "galleryFlags": [
@@ -33,15 +33,15 @@
     },
     "links": {
         "repository": {
-            "uri": "https://dev.azure.com/jycouet/_git/VSTSExtensions"
+            "uri": "https://github.com/jycouet/VSTSExtensions"
         },
         "issues": {
-            "uri": "https://dev.azure.com/jycouet/VSTSExtensions/_boards/board/t/VSTSExtensions%20Team/Stories"
+            "uri": "https://github.com/jycouet/VSTSExtensions/issues"
         }
     },
     "repository": {
 		"type": "git",
-		"uri":	"https://dev.azure.com/jycouet/_git/VSTSExtensions"
+		"uri":	"https://github.com/jycouet/VSTSExtensions"
 	},
     "branding": {
         "color": "#55B541",
