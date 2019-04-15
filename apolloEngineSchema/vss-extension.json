@@ -2,7 +2,7 @@
     "manifestVersion": 1,
     "id": "vsts-extensions-apollo-engine-schema",
     "name": "Apollo Engine Schema",
-    "version": "0.0.4",
+    "version": "0.0.5",
     "publisher": "jyc",
     "public": true,
     "galleryFlags": [

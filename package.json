@@ -5,6 +5,7 @@
   "author": "<jycouet@gmail.com>",
   "license": "MIT",
   "scripts": {
+    "postinstall": "(cd renovateMe/buildtask && yarn) && (cd ../../apolloEngineSchema/buildtask && yarn) && (cd ../../tagOnAllBuildsDone/buildtask && yarn)",
     "package_renovateMe": "tsc && yarn tfx extension create --manifest-globs renovateMe/vss-extension.json --output-path renovateMe/packages --rev-version",
     "package_tagOnAllBuildsDone": "tsc && yarn tfx extension create --manifest-globs tagOnAllBuildsDone/vss-extension.json --output-path tagOnAllBuildsDone/packages --rev-version",
     "package_apolloEngineSchema": "tsc && yarn tfx extension create --manifest-globs apolloEngineSchema/vss-extension.json --output-path apolloEngineSchema/packages --rev-version"
@@ -16,7 +17,6 @@
     "typescript": "^2.5.3"
   },
   "dependencies": {
-    "@types/q": "^1.0.6",
-    "azure-pipelines-task-lib": "^2.8.0"
+    "@types/q": "^1.0.6"
   }
 }

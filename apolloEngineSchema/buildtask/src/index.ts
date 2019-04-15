@@ -1,4 +1,4 @@
-import * as taskLib from "azure-pipelines-task-lib/task";
+import * as taskLib from "vsts-task-lib/task";
 
 class ExecutionOptions {
   public tool = '';
@@ -36,10 +36,10 @@ async function run(): Promise<void> {
 
   // run apollo
   taskLib.debug(`Run apollo`);
-  await exec({
-    tool: 'apollo',
-    arguments: apolloArgs
-  });
+  const runApollo: ExecutionOptions = isYarnCapable 
+    ? { tool: 'yarn', arguments: `apollo ${apolloArgs}` }
+    : { tool: 'apollo', arguments: `${apolloArgs}` };
+  await exec(runApollo);
 
   // the end!
   taskLib.debug(`Apollo done`);
