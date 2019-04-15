@@ -12,7 +12,7 @@ async function run(): Promise<void> {
   if (sourceCodeProvider !== 'TfsGit') {
     throw new Error(`Sorry, we support only TfsGit for now. Please post an issue if you need more :)`);
   }
-  
+
   // vsts Task Token
   const token: string | undefined = taskLib.getEndpointAuthorizationParameter('SYSTEMVSSCONNECTION', 'ACCESSTOKEN', false);
   if (!token || token === '') {
@@ -48,25 +48,22 @@ async function run(): Promise<void> {
   }
 
   // prepare to install renovate
-  const renovateInstallOptions: ExecutionOptions = isYarnCapable 
+  const renovateInstallOptions: ExecutionOptions = isYarnCapable
     ? { tool: 'yarn', arguments: `global add renovate@${renovateOptionsVersion}` }
     : { tool: 'npm', arguments: `install -g renovate@${renovateOptionsVersion}` };
 
   // install renovate
   taskLib.debug(`Install renovate`);
   await exec(renovateInstallOptions);
-  
+
   // prepare run renovate
   const renovateArgs: string = `${project}/${repo} --platform azure --endpoint ${endpointAndCollection} --token ${token} ${renovateOptionsArgs}`;
   taskLib.debug(`renovateArgs to run: ${renovateArgs}`);
 
   // run renovate
   taskLib.debug(`Run renovate`);
-  const runRenovate: ExecutionOptions = isYarnCapable 
-    ? { tool: 'yarn', arguments: `renovate ${renovateArgs}` }
-    : { tool: 'renovate', arguments: `${renovateArgs}` };
-  await exec(runRenovate);
-  
+  await exec({ tool: 'renovate', arguments: `${renovateArgs}` });
+
   // the end!
   taskLib.debug(`Renovate done`);
 }

@@ -36,10 +36,7 @@ async function run(): Promise<void> {
 
   // run apollo
   taskLib.debug(`Run apollo`);
-  const runApollo: ExecutionOptions = isYarnCapable 
-    ? { tool: 'yarn', arguments: `apollo ${apolloArgs}` }
-    : { tool: 'apollo', arguments: `${apolloArgs}` };
-  await exec(runApollo);
+  await exec({ tool: 'apollo', arguments: `${apolloArgs}` });
 
   // the end!
   taskLib.debug(`Apollo done`);
