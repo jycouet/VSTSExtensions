@@ -58,3 +58,5 @@ typings/
 .env
 
 packages
+*.js
+*.d.ts
