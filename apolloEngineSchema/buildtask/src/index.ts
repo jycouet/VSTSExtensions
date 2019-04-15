@@ -1,4 +1,4 @@
-import * as taskLib from "vsts-task-lib/task";
+import * as taskLib from "azure-pipelines-task-lib/task";
 
 class ExecutionOptions {
   public tool = '';

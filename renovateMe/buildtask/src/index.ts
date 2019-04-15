@@ -1,4 +1,4 @@
-import * as taskLib from "vsts-task-lib/task";
+import * as taskLib from "azure-pipelines-task-lib/task";
 
 class ExecutionOptions {
   public tool: string;
@@ -57,15 +57,15 @@ async function run(): Promise<void> {
   await exec(renovateInstallOptions);
   
   // prepare run renovate
-  const renovateArgs: string = `${project}/${repo} --platform vsts --endpoint ${endpointAndCollection} --token ${token} ${renovateOptionsArgs}`;
+  const renovateArgs: string = `${project}/${repo} --platform azure --endpoint ${endpointAndCollection} --token ${token} ${renovateOptionsArgs}`;
   taskLib.debug(`renovateArgs to run: ${renovateArgs}`);
 
   // run renovate
   taskLib.debug(`Run renovate`);
-  await exec({
-    tool: 'renovate',
-    arguments: renovateArgs
-  });
+  const runRenovate: ExecutionOptions = isYarnCapable 
+    ? { tool: 'yarn', arguments: `renovate ${renovateArgs}` }
+    : { tool: 'npm', arguments: `${renovateArgs}` };
+  await exec(runRenovate);
   
   // the end!
   taskLib.debug(`Renovate done`);

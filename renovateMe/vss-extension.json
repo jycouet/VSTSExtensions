@@ -2,7 +2,7 @@
     "manifestVersion": 1,
     "id": "vsts-extensions-renovate-me",
     "name": "Renovate Me",
-    "version": "0.2.8",
+    "version": "0.2.9",
     "publisher": "jyc",
     "public": true,
     "galleryFlags": [
