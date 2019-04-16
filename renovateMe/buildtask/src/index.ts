@@ -52,13 +52,6 @@ async function run(): Promise<void> {
     ? { tool: 'yarn', arguments: `global add renovate@${renovateOptionsVersion}` }
     : { tool: 'npm', arguments: `install -g renovate@${renovateOptionsVersion}` };
 
-  if (isYarnCapable) {
-    // make sure the global path is set correctly!
-    let yarnGlobalBinPath = (await taskLib.execSync('yarn', 'global bin')).stdout;
-    taskLib.debug(`yarnGlobalBinPath: ${yarnGlobalBinPath}`);
-    await taskLib.prependPath(yarnGlobalBinPath);
-  }
-
   // install renovate
   taskLib.debug(`Install renovate`);
   await exec(renovateInstallOptions);
@@ -76,8 +69,7 @@ async function run(): Promise<void> {
 }
 
 async function exec(options: ExecutionOptions): Promise<void> {
-  try {
-    
+  try {    
     await taskLib.exec(options!.tool, options!.arguments);
   } catch (error) {
     const errorMessage: string = `exec(${options!.tool}, ${options!.arguments}): ${error}`;
