@@ -7,7 +7,6 @@ interface ExecutionOptions {
 }
 
 async function run(): Promise<void> {
-
   // vsts Source Code Provider
   const sourceCodeProvider: string = process.env["BUILD_REPOSITORY_PROVIDER"] || '';
   if (sourceCodeProvider !== 'TfsGit') {
@@ -38,39 +37,13 @@ async function run(): Promise<void> {
     throw new Error(`Could not determine build server uri. This task may not be compatible with your build system.`);
   }
 
-  // is yarn capable
-  let isYarnCapable = false;
-  let yarnGlobalPath: string = '';
-  try {
-    taskLib.which('yarn', true);
-    taskLib.debug('Yeahhh, yarn is installed!');
-    isYarnCapable = true;
-    yarnGlobalPath = (await taskLib.execSync('yarn', 'global bin')).stdout.trim();
-  } catch (error) {
-    taskLib.warning(`yarn not found... don't worry we will use npm... but it will be slower...`);
-  }
-
-  // prepare to install renovate
-  const renovateInstallCmd: ExecutionOptions = isYarnCapable
-    ? { tool: 'yarn', arguments: `global add renovate@${renovateOptionsVersion}` }
-    : { tool: 'npm', arguments: `install -g renovate@${renovateOptionsVersion}` };
-
-  // install renovate
-  taskLib.debug(`Install renovate`);
-  await exec(renovateInstallCmd);
-
   // prepare run renovate
   const renovateArgs: string = `\"${project}\"/\"${repo}\" --platform azure --endpoint ${endpointAndCollection} --token ${token} ${renovateOptionsArgs}`;
   taskLib.debug(`renovateArgs to run: ${renovateArgs}`);
-  const runRenovateCmd: ExecutionOptions = isYarnCapable
-    ? { tool: yarnGlobalPath + '\\renovate', arguments: `${renovateArgs}` }
-    : { tool: 'renovate', arguments: `${renovateArgs}` };
-
+  
   // run renovate
   taskLib.debug(`Run renovate`);
-  //await exec({ tool: 'npx', arguments: `renovate@${renovateOptionsVersion} ${renovateArgs}` });
-  // await exec({ tool: 'renovate', arguments: `${renovateArgs}` });
-  await exec(runRenovateCmd);
+  await exec({ tool: 'npx', arguments: `renovate@${renovateOptionsVersion} ${renovateArgs}` });
 
   // the end!
   taskLib.debug(`Renovate done`);
