@@ -22,10 +22,6 @@ This build task is helping you to use [renovate](https://github.com/singapore/re
 
 ![tasks](https://raw.githubusercontent.com/jycouet/VSTSExtensions/master/renovateMe/images/build_tasks.png)
 
-### options
-
-![options](https://raw.githubusercontent.com/jycouet/VSTSExtensions/master/renovateMe/images/build_options.png)
-
 ### OAuth Token should be able to create a branch
 
 ![version_control](https://raw.githubusercontent.com/jycouet/VSTSExtensions/master/renovateMe/images/build_versioncontrol.png)
