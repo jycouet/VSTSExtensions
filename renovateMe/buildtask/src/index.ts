@@ -19,8 +19,8 @@ async function run(): Promise<void> {
     throw new Error(`You need to 'Allow scripts to access OAuth token' in the 'options' tab of your build system.`);
   }
 
-  const renovateOptionsVersion = taskLib.getInput("renovateOptionsVersion");
-  const renovateOptionsArgs = taskLib.getInput("renovateOptionsArgs");
+  const renovateOptionsVersion = taskLib.getInput("renovateOptionsVersion") || 'latest';
+  const renovateOptionsArgs = taskLib.getInput("renovateOptionsArgs") || '';
 
   const project: string | undefined = process.env["SYSTEM_TEAMPROJECT"];
   if (!project) {
