@@ -8,9 +8,8 @@ This build task is helping you to use [renovate](https://github.com/singapore/re
 ## Task Setup
 
 - Select a linux Agent queue
-- Activate the option: **Allow scripts to access OAuth token** in **Options** Tab
-- Check that your `Project collection build service` as the right to **create branch**.
-- Make sure you are on a node > 8.8.x
+- Check that your `Project collection build service` as the right to **create branch** & **Contribute to Pull Request**.
+- Make sure you are on a node >= 10.13.0
 - _Optional_: install yarn
 
 ## In action
@@ -22,10 +21,6 @@ This build task is helping you to use [renovate](https://github.com/singapore/re
 ### tasks
 
 ![tasks](https://raw.githubusercontent.com/jycouet/VSTSExtensions/master/renovateMe/images/build_tasks.png)
-
-### options
-
-![options](https://raw.githubusercontent.com/jycouet/VSTSExtensions/master/renovateMe/images/build_options.png)
 
 ### OAuth Token should be able to create a branch
 
