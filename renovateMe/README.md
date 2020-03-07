@@ -1,7 +1,7 @@
 # Renovate Me
 
 > Hey you, yes you, you are at the right place :) <br>
-You want to keep track of your dependencies?
+> You want to keep track of your dependencies?
 
 This build task is helping you to use [renovate](https://github.com/singapore/renovate) directly with your VSTS **git** repo.
 
@@ -11,6 +11,18 @@ This build task is helping you to use [renovate](https://github.com/singapore/re
 - Check that your `Project collection build service` as the right to **create branch** & **Contribute to Pull Request**.
 - Make sure you are on a node >= 10.13.0
 - _Optional_: install yarn
+
+### _Optional_ Add a Github token so RenovateBot can pull release notes
+
+- In Github, head to your account -> Settings -> Developer settings -> Personal access tokens -> Generate new token -> Generate new token (no need to tick any boxes - this token just needs to be able to read public github data). Copy the new PAT
+- In your pipeline, add a new Pipeline Variable, `GITHUB_COM_TOKEN`, and paste your new PAT as the value. Tick the box to tell Azure Devops this is a secret.
+- In your Renovate task, add the following in Options -> Additional args:
+
+```
+--host-rules="[{\"domainName\":\"github.com\",\"token\":\"$(GITHUB_COM_TOKEN)\"}]"
+```
+
+The PRs that get created should now include release notes about the new updates.
 
 ## In action
 
