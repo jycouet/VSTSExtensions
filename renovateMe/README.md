@@ -8,7 +8,10 @@ This build task is helping you to use [renovate](https://github.com/singapore/re
 ## Task Setup
 
 - Select a linux Agent queue
-- Check that your `Project collection build service` as the right to **create branch** & **Contribute to Pull Request**.
+- Check that your `Project collection build service` as the right to 
+  - **Create branch**
+  - **Contribute to Pull Request**
+  - **Force Push** _(if you want renovate to delete branchs when closing outdated renovations)_
 - Make sure you are on a node >= 10.13.0
 - _Optional_: install yarn
 
