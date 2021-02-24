@@ -3,12 +3,12 @@
 > Hey you, yes you, you are at the right place :) <br>
 > You want to keep track of your dependencies?
 
-This build task is helping you to use [renovate](https://github.com/singapore/renovate) directly with your VSTS **git** repo.
+This build task is helping you to use [renovate](https://github.com/singapore/renovate) directly with your VSTS **git** repo. (Check their nice [Doc](https://docs.renovatebot.com/) if you want to know more)
 
 ## Task Setup
 
 - Select a linux Agent queue
-- Check that your `Project collection build service` as the right to 
+- Check that your `Project collection build service` as the right to
   - **Create branch**
   - **Contribute to Pull Request**
   - **Force Push** _(if you want renovate to delete branchs when closing outdated renovations)_
