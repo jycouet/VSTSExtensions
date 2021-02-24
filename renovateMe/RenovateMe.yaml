@@ -1,0 +1,21 @@
+pool:
+  name: Azure Pipelines
+  vmImage: ubuntu-latest
+
+variables:
+  - name: LOG_LEVEL
+    value: debug
+  - name: System.Debug
+    value: true
+
+steps:
+  - task: geeklearningio.gl-vsts-tasks-yarn.yarn-installer-task.YarnInstaller@3
+    displayName: 'Use Yarn 1.x'
+
+  - task: NodeTool@0
+    displayName: 'Use Node 14.15.4'
+    inputs:
+      versionSpec: 14.15.4
+
+  - task: jyc.vsts-extensions-renovate-me.default-build-task.RenovateMe@0
+    displayName: Renovate

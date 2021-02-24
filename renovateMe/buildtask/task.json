@@ -1,47 +1,47 @@
 {
-    "id": "c48c23aa-bbff-11e7-abc4-cec278b6b50a",
-    "name": "RenovateMe",
-    "friendlyName": "Renovate Me",
-    "description": "Renovate your libs on your selected VSTS repo",
-    "helpMarkDown": "[Renovate Me](https://marketplace.visualstudio.com/items?itemName=jyc.vsts-extensions-renovate-me) based on [renovate](https://github.com/singapore/renovate)",
-    "category": "Utility",
-    "author": "Jean-Yves COUET",
-    "version": {
-        "Major": 0,
-        "Minor": 1,
-        "Patch": 0
-    },
-    "instanceNameFormat": "Renovate",
-    "groups": [
-        {
-			"name": "renovateOptions",
-			"displayName": "Options",
-			"isExpanded": false
-		}
-    ],
-    "inputs": [
-        {
-            "groupName": "renovateOptions",
-            "name": "renovateOptionsVersion",
-            "type": "string",
-            "label": "Renovate version to use",
-            "defaultValue": "latest",
-            "required": true,
-            "helpMarkDown": "By default we are using latest, but you can specify the exact version ('10.3.0' minimum for VSTS support)"
-        },
-        {
-            "groupName": "renovateOptions",
-            "name": "renovateOptionsArgs",
-            "type": "string",
-            "label": "Additional args",
-            "defaultValue": "",
-            "required": false,
-            "helpMarkDown": "example: `--ignore-unstable=false`, to see all args look at the [doc](https://renovateapp.com/docs/configuration-reference/configuration-options)"
-        }
-    ],
-    "execution": {
-        "Node": {
-            "target": "src/index.js"
-        }
+  "id": "c48c23aa-bbff-11e7-abc4-cec278b6b50a",
+  "name": "RenovateMe",
+  "friendlyName": "Renovate Me",
+  "description": "Renovate your libs on your selected VSTS repo",
+  "helpMarkDown": "[Renovate Me](https://marketplace.visualstudio.com/items?itemName=jyc.vsts-extensions-renovate-me) based on [renovate](https://github.com/singapore/renovate)",
+  "category": "Utility",
+  "author": "Jean-Yves COUET",
+  "version": {
+    "Major": 0,
+    "Minor": 2,
+    "Patch": 0
+  },
+  "instanceNameFormat": "Renovate",
+  "groups": [
+    {
+      "name": "renovateOptions",
+      "displayName": "Options",
+      "isExpanded": false
     }
+  ],
+  "inputs": [
+    {
+      "groupName": "renovateOptions",
+      "name": "renovateOptionsVersion",
+      "type": "string",
+      "label": "Renovate version to use",
+      "defaultValue": "latest",
+      "required": true,
+      "helpMarkDown": "By default we are using latest, but you can specify the exact version ('10.3.0' minimum for VSTS support)"
+    },
+    {
+      "groupName": "renovateOptions",
+      "name": "renovateOptionsArgs",
+      "type": "string",
+      "label": "Additional args",
+      "defaultValue": "",
+      "required": false,
+      "helpMarkDown": "example: `--ignore-unstable=false`, to see all args look at the [doc](https://renovateapp.com/docs/configuration-reference/configuration-options)"
+    }
+  ],
+  "execution": {
+    "Node": {
+      "target": "src/index.js"
+    }
+  }
 }

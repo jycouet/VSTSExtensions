@@ -5,6 +5,10 @@
 
 This build task is helping you to use [renovate](https://github.com/singapore/renovate) directly with your VSTS **git** repo. (Check their nice [Doc](https://docs.renovatebot.com/) if you want to know more)
 
+## Tips: use a yaml file
+
+Find an example here: [RenovateMe.yaml](./RenovateMe.yaml)
+
 ## Task Setup
 
 - Select a linux Agent queue

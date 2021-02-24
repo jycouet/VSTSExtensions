@@ -4,7 +4,7 @@
   "main": "src/index.js",
   "license": "MIT",
   "dependencies": {
-    "vso-node-api": "true6.2.8-preview",
-    "vsts-task-lib": "^2.1.0"
+    "vso-node-api": "6.5.0",
+    "vsts-task-lib": "2.7.0"
   }
 }

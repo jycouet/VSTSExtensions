@@ -1,67 +1,56 @@
 {
-    "manifestVersion": 1,
-    "id": "vsts-extensions-renovate-me",
-    "name": "Renovate Me",
-    "version": "0.3.9",
-    "publisher": "jyc",
-    "public": true,
-    "galleryFlags": [
-        "Preview"
-    ],
-    "targets": [
-        {
-            "id": "Microsoft.VisualStudio.Services"
-        }
-    ],
-    "description": "Renovate embedded in VSTS!",
-    "categories": [
-        "Build and release"
-    ],
-    "icons": {
-        "default": "images/extension-icon.png"
-    },
-    "tags": [
-        "renovate",
-        "libs",
-        "packages",
-        "utility"
-    ],
-    "content": {
-        "details": {
-            "path": "renovateMe/README.md"
-        }
-    },
-    "links": {
-        "repository": {
-            "uri": "https://github.com/jycouet/VSTSExtensions"
-        },
-        "issues": {
-            "uri": "https://github.com/jycouet/VSTSExtensions/issues"
-        }
-    },
+  "manifestVersion": 1,
+  "id": "vsts-extensions-renovate-me",
+  "name": "Renovate Me",
+  "version": "0.4.1",
+  "publisher": "jyc",
+  "public": true,
+  "galleryFlags": ["Preview"],
+  "targets": [
+    {
+      "id": "Microsoft.VisualStudio.Services"
+    }
+  ],
+  "description": "Renovate embedded in VSTS!",
+  "categories": ["Build and release"],
+  "icons": {
+    "default": "images/extension-icon.png"
+  },
+  "tags": ["renovate", "libs", "packages", "utility"],
+  "content": {
+    "details": {
+      "path": "renovateMe/README.md"
+    }
+  },
+  "links": {
     "repository": {
-		"type": "git",
-		"uri":	"https://github.com/jycouet/VSTSExtensions"
-	},
-    "branding": {
-        "color": "#55B541",
-        "theme": "dark"
+      "uri": "https://github.com/jycouet/VSTSExtensions"
     },
-    "files": [
-        {
-            "path": "buildtask"
-        }
-    ],
-    "contributions": [
-        {
-            "id": "default-build-task",
-            "type": "ms.vss-distributed-task.task",
-            "targets": [
-                "ms.vss-distributed-task.tasks"
-            ],
-            "properties": {
-                "name": "renovateMe/buildtask"
-            }
-        }
-    ]
+    "issues": {
+      "uri": "https://github.com/jycouet/VSTSExtensions/issues"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "uri": "https://github.com/jycouet/VSTSExtensions"
+  },
+  "branding": {
+    "color": "#55B541",
+    "theme": "dark"
+  },
+  "files": [
+    {
+      "path": "buildtask"
+    }
+  ],
+  "contributions": [
+    {
+      "id": "default-build-task",
+      "type": "ms.vss-distributed-task.task",
+      "targets": ["ms.vss-distributed-task.tasks"],
+      "properties": {
+        "name": "renovateMe/buildtask"
+      }
+    }
+  ]
 }

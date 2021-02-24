@@ -20,7 +20,7 @@ concat-map@0.0.1:
   resolved "https://registry.yarnpkg.com/concat-map/-/concat-map-0.0.1.tgz#d8a96bd77fd68df7793a73036a3ba0d5405d477b"
   integrity sha1-2Klr13/Wjfd5OnMDajug1UBdR3s=
 
-minimatch@^3.0.0:
+minimatch@3.0.4:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/minimatch/-/minimatch-3.0.4.tgz#5166e286457f03306064be5497e8dbb0c3d32083"
   integrity sha512-yJHVQEhyqPLUTgt9B83PXu6W3rx4MvvHvSUvToogpwoGDOUQ+yDrR0HRot+yOCdCO7u4hX3pWft6kWBBcqh0UA==
@@ -60,7 +60,7 @@ typed-rest-client@^0.12.0:
     tunnel "0.0.4"
     underscore "1.8.3"
 
-underscore@1.8.3, underscore@^1.8.3:
+underscore@1.8.3:
   version "1.8.3"
   resolved "https://registry.yarnpkg.com/underscore/-/underscore-1.8.3.tgz#4f3fb53b106e6097fcf9cb4109f2a5e9bdfa5022"
   integrity sha1-Tz+1OxBuYJf8+ctBCfKl6b36UCI=
@@ -70,21 +70,21 @@ uuid@^3.0.1:
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.1.0.tgz#3dd3d3e790abc24d7b0d3a034ffababe28ebbc04"
   integrity sha512-DIWtzUkw04M4k3bf1IcpS2tngXEL26YUD2M0tMDUpnUrz2hgzUBlD55a4FjdLGPvfHxS6uluGWvaVEqgBcVa+g==
 
-vso-node-api@true6.2.8-preview:
-  version "6.2.8-preview"
-  resolved "https://registry.yarnpkg.com/vso-node-api/-/vso-node-api-6.2.8-preview.tgz#99902e626c408716ab90b042705452c88ec1c2f0"
-  integrity sha1-mZAuYmxAhxarkLBCcFRSyI7BwvA=
+vso-node-api@6.5.0:
+  version "6.5.0"
+  resolved "https://registry.yarnpkg.com/vso-node-api/-/vso-node-api-6.5.0.tgz#5f3453f27d211b0fd54423c4c73116c1e8fea0c6"
+  integrity sha512-hFjPLMJkq02zF8U+LhZ4airH0ivaiKzGdlNAQlYFB3lWuGH/UANUrl63DVPUQOyGw+7ZNQ+ufM44T6mWN92xyg==
   dependencies:
     tunnel "0.0.4"
     typed-rest-client "^0.12.0"
-    underscore "^1.8.3"
+    underscore "1.8.3"
 
-vsts-task-lib@^2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/vsts-task-lib/-/vsts-task-lib-2.1.0.tgz#c371aeff2a8d98438865235dc9fc94701c404c84"
-  integrity sha1-w3Gu/yqNmEOIZSNdyfyUcBxATIQ=
+vsts-task-lib@2.7.0:
+  version "2.7.0"
+  resolved "https://registry.yarnpkg.com/vsts-task-lib/-/vsts-task-lib-2.7.0.tgz#742973d2e9d6ad2fc30b732061088cdb6c7d2709"
+  integrity sha512-zQqgneIZG3VY84RoIzkQr07r9fDH3lPpj6Qp07K89co/vyFznWJYpkjcdxubQm1YvgNu/P0yWYLdDruHyGGdtA==
   dependencies:
-    minimatch "^3.0.0"
+    minimatch "3.0.4"
     mockery "^1.7.0"
     q "^1.1.2"
     semver "^5.1.0"
