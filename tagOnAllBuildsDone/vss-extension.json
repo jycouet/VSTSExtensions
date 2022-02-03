@@ -2,7 +2,7 @@
     "manifestVersion": 1,
     "id": "vsts-extensions-tag-on-all-builds-done",
     "name": "Tag On All Builds Done",
-    "version": "0.0.5",
+    "version": "0.0.6",
     "publisher": "jyc",
     "public": true,
     "galleryFlags": [
