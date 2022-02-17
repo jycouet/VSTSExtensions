@@ -7,7 +7,7 @@ This build task is helping you to use [renovate](https://github.com/singapore/re
 
 ## Tips: use a yaml file
 
-Find an example here: [RenovateMe.yaml](./RenovateMe.yaml)
+Find an example here: [RenovateMe.yaml](https://github.com/jycouet/VSTSExtensions/blob/master/renovateMe/RenovateMe.yaml)
 
 ## Task Setup
 
