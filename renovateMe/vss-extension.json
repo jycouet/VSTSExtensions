@@ -5,7 +5,6 @@
   "version": "1.0.1",
   "publisher": "jyc",
   "public": true,
-  "galleryFlags": ["Preview"],
   "targets": [
     {
       "id": "Microsoft.VisualStudio.Services"
