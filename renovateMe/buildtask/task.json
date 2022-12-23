@@ -7,9 +7,9 @@
   "category": "Utility",
   "author": "Jean-Yves COUET",
   "version": {
-    "Major": 0,
-    "Minor": 2,
-    "Patch": 0
+    "Major": 1,
+    "Minor": 0,
+    "Patch": 1
   },
   "instanceNameFormat": "Renovate",
   "groups": [
