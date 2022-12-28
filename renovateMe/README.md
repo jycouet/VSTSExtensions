@@ -3,11 +3,7 @@
 > Hey you, yes you, you are at the right place :) <br>
 > You want to keep track of your dependencies?
 
-This build task is helping you to use [renovate](https://github.com/singapore/renovate) directly with your VSTS **git** repo. (Check their nice [Doc](https://docs.renovatebot.com/) if you want to know more)
-
-## Tips: use a yaml file
-
-Find an example here: [RenovateMe.yaml](https://github.com/jycouet/VSTSExtensions/blob/master/renovateMe/RenovateMe.yaml)
+This build task is helping you to use [renovate](https://github.com/renovatebot/renovate) directly with your Azure DevOps Services **git** repo. (Check their nice [Doc](https://docs.renovatebot.com/) if you want to know more)
 
 ## Task Setup
 
@@ -18,6 +14,26 @@ Find an example here: [RenovateMe.yaml](https://github.com/jycouet/VSTSExtension
   - **Force Push** _(if you want renovate to delete branchs when closing outdated renovations)_
 - Make sure you are on a node >= 10.13.0
 - _Optional_: install yarn
+
+## Use a yaml file
+
+Microsoft recommends to use multi-staging-pipelines and not the class build / release pipelines. Below you see an example
+
+```yaml
+  - task: geeklearningio.gl-vsts-tasks-yarn.yarn-installer-task.YarnInstaller@3
+    displayName: 'Use yarn'
+
+  - task: NodeTool@0
+    displayName: 'Use node'
+    inputs:
+    versionSpec: <your node version>
+
+  - task: jyc.vsts-extensions-renovate-me.default-build-task.RenovateMe@0
+    input:
+      renovateOptionsVersion: 10.3.0 # optional | semantic version of the renovate version to use
+      renovateOptionsArgs: '--ignore-unstable=false' # optional | see the folowing for all options https://docs.renovatebot.com/self-hosted-configuration/
+    displayName: Run renovate
+```
 
 ### _Optional_ Add a Github token so RenovateBot can pull release notes
 
@@ -36,6 +52,8 @@ The PRs that get created should now include release notes about the new updates.
 ![gif](https://raw.githubusercontent.com/jycouet/VSTSExtensions/master/renovateMe/images/renovate_me.gif)
 
 ## Basic build definition
+
+**Important**: it is not recommended to use classic build / release definitions anymore.
 
 ### tasks
 
