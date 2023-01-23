@@ -2,7 +2,7 @@
   "id": "c48c23aa-bbff-11e7-abc4-cec278b6b50a",
   "name": "RenovateMe",
   "friendlyName": "Renovate Me",
-  "description": "Renovate your libs on your selected VSTS repo",
+  "description": "Renovate your libs on your selected Azure Repo",
   "helpMarkDown": "[Renovate Me](https://marketplace.visualstudio.com/items?itemName=jyc.vsts-extensions-renovate-me) based on [renovate](https://github.com/singapore/renovate)",
   "category": "Utility",
   "author": "Jean-Yves COUET",
@@ -27,7 +27,7 @@
       "label": "Renovate version to use",
       "defaultValue": "latest",
       "required": true,
-      "helpMarkDown": "By default we are using latest, but you can specify the exact version ('10.3.0' minimum for VSTS support)"
+      "helpMarkDown": "By default we are using latest, but you can specify the exact version ('10.3.0' minimum for Azure DevOps support)"
     },
     {
       "groupName": "renovateOptions",
