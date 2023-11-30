@@ -40,7 +40,7 @@
     }
   ],
   "execution": {
-    "Node": {
+    "Node16": {
       "target": "src/index.js"
     }
   }
