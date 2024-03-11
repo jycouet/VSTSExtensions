@@ -55,6 +55,13 @@ async function run(): Promise<void> {
     );
   }
 
+  // validate renovate config so that pipeline will fail if config errors are present.
+  taskLib.debug(`Validating renovate config`);
+  await exec({
+    tool: 'npx',
+    arguments: `--yes --package renovate@${renovateOptionsVersion} -- renovate-config-validator`,
+  });
+
   // prepare run renovate
   const renovateArgs: string = `\"${project}\"/\"${repo}\" --platform azure --endpoint ${endpointAndCollection} --token ${token} ${renovateOptionsArgs}`;
   taskLib.debug(`renovateArgs to run: ${renovateArgs}`);
