@@ -28,7 +28,7 @@ Microsoft recommends to use multi-staging-pipelines and not the class build / re
     inputs:
     versionSpec: <your node version>
 
-  - task: jyc.vsts-extensions-renovate-me.default-build-task.RenovateMe@0
+  - task: jyc.vsts-extensions-renovate-me.default-build-task.RenovateMe@1
     input:
       renovateOptionsVersion: 10.3.0 # optional | semantic version of the renovate version to use
       renovateOptionsArgs: '--ignore-unstable=false' # optional | see the folowing for all options https://docs.renovatebot.com/self-hosted-configuration/
