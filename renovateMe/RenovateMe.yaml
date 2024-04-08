@@ -17,5 +17,5 @@ steps:
     inputs:
       versionSpec: 14.15.4
 
-  - task: jyc.vsts-extensions-renovate-me.default-build-task.RenovateMe@0
+  - task: jyc.vsts-extensions-renovate-me.default-build-task.RenovateMe@1
     displayName: Renovate
