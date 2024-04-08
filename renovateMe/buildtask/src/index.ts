@@ -1,5 +1,5 @@
-import * as taskLib from 'azure-pipelines-task-lib/task';
-var stream = require('stream');
+import * as taskLib from "azure-pipelines-task-lib/task";
+var stream = require("stream");
 interface ExecutionOptions {
   tool: string;
   arguments: string;
@@ -8,8 +8,8 @@ interface ExecutionOptions {
 async function run(): Promise<void> {
   // vsts Source Code Provider
   const sourceCodeProvider: string =
-    process.env['BUILD_REPOSITORY_PROVIDER'] || '';
-  if (sourceCodeProvider !== 'TfsGit') {
+    process.env["BUILD_REPOSITORY_PROVIDER"] || "";
+  if (sourceCodeProvider !== "TfsGit") {
     throw new Error(
       `Sorry, we support only TfsGit for now. Please post an issue if you need more :)`
     );
@@ -17,30 +17,30 @@ async function run(): Promise<void> {
 
   // vsts Task Token
   const token: string | undefined =
-    process.env['RENOVATE_TOKEN'] ||
+    process.env["RENOVATE_TOKEN"] ||
     taskLib.getEndpointAuthorizationParameter(
-      'SYSTEMVSSCONNECTION',
-      'ACCESSTOKEN',
+      "SYSTEMVSSCONNECTION",
+      "ACCESSTOKEN",
       false
     );
-  if (!token || token === '') {
+  if (!token || token === "") {
     throw new Error(
       `You need to 'Allow scripts to access OAuth token' in the 'options' tab of your build system.`
     );
   }
 
   const renovateOptionsVersion =
-    taskLib.getInput('renovateOptionsVersion') || 'latest';
-  const renovateOptionsArgs = taskLib.getInput('renovateOptionsArgs') || '';
+    taskLib.getInput("renovateOptionsVersion") || "latest";
+  const renovateOptionsArgs = taskLib.getInput("renovateOptionsArgs") || "";
 
-  const project: string | undefined = process.env['SYSTEM_TEAMPROJECT'];
+  const project: string | undefined = process.env["SYSTEM_TEAMPROJECT"];
   if (!project) {
     throw new Error(
       `Could not determine project name. This task may not be compatible with your build system.`
     );
   }
 
-  const repo: string | undefined = process.env['BUILD_REPOSITORY_NAME'];
+  const repo: string | undefined = process.env["BUILD_REPOSITORY_NAME"];
   if (!repo) {
     throw new Error(
       `Could not determine repository name. This task may not be compatible with your build system.`
@@ -48,7 +48,7 @@ async function run(): Promise<void> {
   }
 
   const endpointAndCollection: string | undefined =
-    process.env['SYSTEM_TEAMFOUNDATIONCOLLECTIONURI'];
+    process.env["SYSTEM_TEAMFOUNDATIONCOLLECTIONURI"];
   if (!endpointAndCollection) {
     throw new Error(
       `Could not determine build server uri. This task may not be compatible with your build system.`
@@ -58,7 +58,7 @@ async function run(): Promise<void> {
   // validate renovate config so that pipeline will fail if config errors are present.
   taskLib.debug(`Validating renovate config`);
   await exec({
-    tool: 'npx',
+    tool: "npx",
     arguments: `--yes --package renovate@${renovateOptionsVersion} -- renovate-config-validator`,
   });
 
@@ -69,7 +69,7 @@ async function run(): Promise<void> {
   // run renovate
   taskLib.debug(`Run renovate`);
   await exec({
-    tool: 'npx',
+    tool: "npx",
     arguments: `renovate@${renovateOptionsVersion} ${renovateArgs}`,
   });
 
@@ -80,6 +80,8 @@ async function run(): Promise<void> {
 let needToRun = true;
 
 async function exec(options: ExecutionOptions): Promise<void> {
+  // Let's assume that we needToRun on any `exec`
+  needToRun = true;
   try {
     let i = 1;
     while (needToRun && i <= 10) {
@@ -102,7 +104,7 @@ async function exec(options: ExecutionOptions): Promise<void> {
 var readOutStream = new stream.Writable({
   write: function (chunk: any, encoding: any, next: any) {
     const str = chunk.toString();
-    if (str.includes('INFO: PR automerged')) {
+    if (str.includes("INFO: PR automerged")) {
       needToRun = true;
     }
     console.log(str);
@@ -111,5 +113,5 @@ var readOutStream = new stream.Writable({
 });
 
 run()
-  .then(() => taskLib.setResult(taskLib.TaskResult.Succeeded, ''))
+  .then(() => taskLib.setResult(taskLib.TaskResult.Succeeded, ""))
   .catch((err) => taskLib.setResult(taskLib.TaskResult.Failed, err));
