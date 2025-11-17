@@ -2,7 +2,7 @@
   "manifestVersion": 1,
   "id": "vsts-extensions-renovate-me",
   "name": "Renovate Me",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "publisher": "jyc",
   "public": true,
   "targets": [
