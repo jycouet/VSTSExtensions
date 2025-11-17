@@ -9,7 +9,7 @@
   "version": {
     "Major": 1,
     "Minor": 0,
-    "Patch": 8
+    "Patch": 9
   },
   "instanceNameFormat": "Renovate",
   "groups": [
@@ -40,7 +40,7 @@
     }
   ],
   "execution": {
-    "Node20": {
+    "Node20_1": {
       "target": "src/index.js"
     }
   }
